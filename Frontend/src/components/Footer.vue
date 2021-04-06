@@ -24,5 +24,8 @@ export default {
 </script>
 
 <style scoped lang="scss" >
+li{
+    font-size: 10px;
+}
 
 </style>

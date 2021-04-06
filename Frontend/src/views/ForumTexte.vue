@@ -15,16 +15,16 @@
         </ul>  
         <view-routeur></view-routeur>
         <h1 class="text-center text-white">Forum Texte</h1>
-        <div class="border border-white rounded">
-            <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation" novalidate>
-                <div class="form-group col-11 col-md-10 m-0 p-1">
+        <div class=" formulaire border border-white rounded">
+            <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation p-0" novalidate>
+                <div class="form-group col-11 col-md-10 m-0 pr-1 pl-1">
                     <label for="post" class="col-auto col-form-label col-form-label-sm"></label> 
-                    <textarea name="post" id="post" class="form-control form-control-lg" placeholder="Veuillez saisir un nouveau post" v-model="post" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
+                    <textarea name="post" id="post" class=" placeholder form-control form-control-lg" placeholder="Veuillez saisir un nouveau post" v-model="post" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
                     <div class="valid-feedback">Valide</div>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-2 text-center">
-                    <button type="submit" @click.prevent="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Publier</button>
+                    <button type="submit" @click.prevent="submitFormForum" class="publier btn btn-primary btn-lg col-12 col-md-5 ">Publier</button>
                 </div>            
             </form>
         </div>
@@ -39,16 +39,16 @@
             </section>
             <section v-else class="d-flex flex-column" >
                 <div v-if="loading">Chargement...</div>
-                <div v-else v-for="post in info" :key="post.idForum" class="forums  col-12 m-0 p-0 pb-1">
+                <div v-else v-for="post in info" :key="post.idForum" class="forums col-12 m-0 p-0 pb-1">
                     <div class="boder border border-white rounded " >
-                        <p class="m-0 p-1">{{ post.contenuTexte }}</p>
-                        <p class="align-self-end m-0 p-1">par {{ post.pseudo }}</p>
+                        <p class=" post text-white m-0 p-1">{{ post.contenuTexte }}</p>
+                        <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudo }}</p>
                     </div>
                     <div class="text-center pb-1">
                         <router-link class="text-white font-weight-bold mr-2" to="/commentaire">
                             <button class="btn btn-primary btn-sm col-5"><i class="far fa-comment-dots"></i></button>
                         </router-link>
-                        <button class="btn btn-primary btn-sm col-5"><i class="far fa-trash-alt"></i></button>
+                        <button v-if="'pseudo' === 'tata' || 'toto' || 'titi'" class="btn btn-primary btn-sm col-5"><i class="far fa-trash-alt"></i></button>
                     </div>                 
                 </div>
             </section>
@@ -131,6 +131,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.placeholder{
+    font-size: 12px;
+    font-style: italic;
+}
+.publier{
+    font-size: 14px;
+    font-weight: bold;
+}
+.post{
+    font-size: 14px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.pseudo{
+    font-size: 10px;
+    font-style: italic;
+    color: rgb(176, 196, 233);
+}
 
 </style>

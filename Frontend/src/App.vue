@@ -45,4 +45,7 @@ body {
   font-weight: bold;  
   border-bottom: 1px solid white;
 }
+li{
+  font-size: 12px;
+}
 </style>
