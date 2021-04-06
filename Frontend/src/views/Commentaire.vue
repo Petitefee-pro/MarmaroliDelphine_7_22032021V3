@@ -10,7 +10,7 @@
                 <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-texte">Forum texte</router-link>
             </li>
             <li class="nav-item h-50 bg-secondary">
-                <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-multimedia">Forum Multimédia</router-link> 
+                <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-multimedia">Forum multimédia</router-link> 
             </li>
         </ul>  
         <view-routeur></view-routeur>

@@ -10,11 +10,11 @@
                 <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-texte">Forum texte</router-link>
             </li>
             <li class="nav-item h-50 bg-secondary">
-                <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-multimedia">Forum Multimédia</router-link> 
+                <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-multimedia">Forum multimédia</router-link> 
             </li>
         </ul>  
         <view-routeur></view-routeur>
-        <h1 class="text-center text-white">Forum Texte</h1>
+        <h1 class="text-center text-white">Forum texte</h1>
         <div class="border border-white rounded">
             <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation" novalidate>
                 <div class="form-group col-11 col-md-10 m-0 p-1">

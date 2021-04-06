@@ -10,7 +10,7 @@
                 <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-texte">Forum texte</router-link>
             </li>
             <li class="nav-item h-50 bg-secondary">
-                <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-multimedia">Forum Multimédia</router-link> 
+                <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-multimedia">Forum multimédia</router-link> 
             </li>
         </ul>  
         <view-routeur></view-routeur>
@@ -24,7 +24,7 @@
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-2 text-center">
-                    <button type="submit" @click.prevent="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Poster</button>
+                    <button type="submit" @click.prevent="submitFormForum" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Publier</button>
                 </div>            
             </form>
         </div>
