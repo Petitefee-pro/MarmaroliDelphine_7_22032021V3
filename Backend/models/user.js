@@ -7,9 +7,6 @@ const User = function(user){
     this.password = user.password
 };
 
-
-
-
 //Route post signup
 User.updateById = (user) => {
     console.log(user)

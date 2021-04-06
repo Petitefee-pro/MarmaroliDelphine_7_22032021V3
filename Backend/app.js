@@ -10,22 +10,6 @@ const app = express();
 
 app.use(cors())
 
-/*const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'developper83',
-    database: 'groupomania'
-});
-db.connect(function(err){
-    if(err) throw err;
-    console.log("Connecté à la base de données MySQL !");
-    db.query("SELECT*FROM users", function (err, result, fields){
-        if (err) throw err;
-        console.log(result);
-    })
-});*/
-
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

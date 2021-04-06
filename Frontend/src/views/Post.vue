@@ -41,6 +41,8 @@ export default {
     },
 
     submitFormForum: function (){
+
+        //Vérification du formulaire par regex
         let pseudo = localStorage.getItem('pseudo');
         let post = this.post;
         let regexPost = /[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
@@ -63,6 +65,8 @@ export default {
                 cache: 'default'
             }
             console.log(envoi);
+
+            //Envoi du formulaire de post
             fetch("http://localhost:3000/api/forum", envoi)
             .then(response => {
                 console.log(response);

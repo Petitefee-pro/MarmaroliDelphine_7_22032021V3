@@ -41,6 +41,8 @@ export default {
     },
     methods:{        
         submitFormCommentaire: function (){
+
+            //Vérification par regex du formulaire de dépôt d'un commentaire
             let pseudo = localStorage.getItem('pseudo');
             let commentaire = this.commentaire;
             let regexCommentaire = /[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
@@ -63,7 +65,9 @@ export default {
                     mode: 'cors',
                     cache: 'default'
                 }
-            console.log(envoi);
+                console.log(envoi);
+            
+            //Envoi du commentaire
             fetch("http://localhost:3000/api/commentaire/:id", envoi)
             .then(response => {
                 console.log(response);

@@ -77,6 +77,8 @@ export default {
     },
     methods:{        
         submitFormForum: function (){
+
+            //Vérification par regex du formulaire de dépôt d'un post
             let pseudo = localStorage.getItem('pseudo');
             let post = this.post;
             let regexPost = /[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
@@ -99,6 +101,8 @@ export default {
                     cache: 'default'
                 }
             console.log(envoi);
+
+            //Envoi du post
             fetch("http://localhost:3000/api/forum", envoi)
             .then(response => {
                 console.log(response);
@@ -106,9 +110,10 @@ export default {
             })            
             .catch(error => alert("Erreur : " + error));
             }
-        },
-        
+        },        
     },
+
+    //Affichage des posts et des commentaires
     created() {
         axios
             .get ("http://localhost:3000/api/forum/", {

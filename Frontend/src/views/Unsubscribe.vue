@@ -65,6 +65,8 @@ export default ({
                     cache: 'default'
                 };
                 console.log(envoi);
+                
+                //Envoi du formulaire pour la désincription
                 /*fetch("http://localhost:3000/api/user/unsubscribe", envoi)
                 .then(res = res.json())
                 .then(response => {

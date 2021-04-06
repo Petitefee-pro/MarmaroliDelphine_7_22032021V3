@@ -49,7 +49,6 @@ export default {
     methods:{
         submitFormSignup: function (){
 
-console.log('post')
             //Vérification par regex du formulaire d'inscription
             let identifiant = this.identifiant;
             let regexIdentifiant = /[0-9]{4}/g;
@@ -74,7 +73,6 @@ console.log('post')
                 console.log(profil)
 
                 //Envoi du formulaire d'inscription
-
                 axios.post("http://localhost:3000/api/user/signup", JSON.stringify({
                     identifiant: identifiant,
                     pseudo: pseudo,

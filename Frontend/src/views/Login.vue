@@ -58,6 +58,8 @@ export default ({
                     cache: 'default'
                 };
                 console.log(envoi);
+
+                //Envoi du formulaire d'inscription
                 fetch("http://localhost:3000/api/user/login", envoi)
                 .then(res => res.json())
                 .then(response => {
