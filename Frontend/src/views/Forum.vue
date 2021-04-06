@@ -5,7 +5,7 @@
         <li class="nav-item bg-secondary mb-4">
           <router-link class="nav-link text-white font-weight-bold" to="/forum-texte">
           <p>FORUM TEXTE</p>
-          <p>Venez partager un petit message avec vos collègues</p>
+          <p>Venez partager un message avec vos collègues</p>
           </router-link>
         </li>
         <li class="nav-item bg-secondary mb-4">

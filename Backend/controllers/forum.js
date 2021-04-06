@@ -27,7 +27,7 @@ exports.deleteForum = (req, res) => {
   })
 };
 
-//Récupération de tous les forums
+//Récupération de tous les forums et commentaires
 exports.getAllForums = (req, res) => {
   sql.query(`SELECT * FROM forums`, (err, result) => { 
   //Requête à mettre en place une fois que la route post des commentaires 

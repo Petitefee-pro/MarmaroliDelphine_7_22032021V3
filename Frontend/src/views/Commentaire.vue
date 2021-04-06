@@ -51,7 +51,8 @@ export default {
                 let message = {
                     pseudo: pseudo,
                     commentaire: commentaire,
-                    idUser: localStorage.getItem('idUser')
+                    idUser: localStorage.getItem('idUser'),
+                    /*idForum: idForum*/
                 }
                 console.log(message);
                 console.log(commentaire)
@@ -68,7 +69,7 @@ export default {
                 console.log(envoi);
             
             //Envoi du commentaire
-            fetch("http://localhost:3000/api/commentaire/:id", envoi)
+            fetch("http://localhost:3000/api/commentaire/", envoi)
             .then(response => {
                 console.log(response);
                 //location.replace('http://localhost:8080/forum-texte')
@@ -76,7 +77,10 @@ export default {
             .catch(error => alert("Erreur : " + error));
             }
         }
-    }
+    }, 
+    created(){
+    this.postId = this.$route.params.id;
+    }   
 }
 </script>
 

@@ -59,7 +59,7 @@ const routes = [
         component: () => import(/*weppackChunkName: "commentaire"*/ '@/views/Post.vue')
     },
     {
-        path: "/commentaire",
+        path: "/commentaire/:id",
         name: "Commentaire",
         component: () => import(/*weppackChunkName: "commentaire"*/ '@/views/Commentaire.vue')
     },

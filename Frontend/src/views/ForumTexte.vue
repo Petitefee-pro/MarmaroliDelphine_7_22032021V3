@@ -45,10 +45,10 @@
                         <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudo }}</p>
                     </div>
                     <div class="text-center pb-1">
-                        <router-link class="text-white font-weight-bold mr-2" to="/commentaire">
+                        <router-link :to="`/commentaire/${post.idForum}`" class="text-white font-weight-bold mr-2">
                             <button class="btn btn-primary btn-sm col-5"><i class="far fa-comment-dots"></i></button>
                         </router-link>
-                        <button v-if="'pseudo' === 'tata' || 'toto' || 'titi'" class="btn btn-primary btn-sm col-5"><i class="far fa-trash-alt"></i></button>
+                        <button v-if="'pseudo' === 'tata' || 'toto' || 'titi'" @click.prevent="submitDelete" class="btn btn-primary btn-sm col-5"><i class="far fa-trash-alt"></i></button>
                     </div>                 
                 </div>
             </section>
@@ -66,7 +66,7 @@
 import axios from 'axios'
 
 export default {
-    name: 'forum',
+    name: 'forumTexte',
     data(){
         return {
             pseudo:'',
@@ -113,6 +113,15 @@ export default {
         },        
     },
 
+    submitDelete: function (){
+        fetch("http://localhost:3000/api/forum/:id")
+            .then(response => {
+                console.log(response);
+                location.replace('http://localhost:8080/forum-texte')
+            })            
+            .catch(error => alert("Erreur : " + error));
+    },
+
     //Affichage des posts et des commentaires
     created() {
         axios
@@ -152,7 +161,7 @@ export default {
 .pseudo{
     font-size: 10px;
     font-style: italic;
-    color: rgb(176, 196, 233);
+    color: rgb(204, 216, 236);
 }
 
 </style>
