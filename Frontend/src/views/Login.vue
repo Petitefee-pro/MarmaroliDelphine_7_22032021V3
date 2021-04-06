@@ -65,7 +65,6 @@ export default ({
                     localStorage.setItem('idUser', response.idUser);
                     localStorage.setItem('pseudo', response.pseudo);
                     localStorage.setItem('token', response.token);
-                    /*localStorage.setItem('token', JSON.stringify(token));*/
                     location.replace('http://localhost:8080/forum');
                 })                                                               
                 .catch(error => alert("Erreur : " + error));

@@ -1,16 +1,16 @@
 const sql = require('../models/db');
-const Commentaire = require('../models/commentaire');
+const commentaireModel = require('../models/commentaire');
 
 //Création d'un nouveau commentaire
-exports.createCommentaire =(req, res) => {
+exports.createCommentaire = (req, res) => {
   console.log("message : ", req.body.message);
-  const CommentaireReqData = (req.body.message);
-  console.log(CommentaireReqData);
+  const commentaireReqData = (req.body.message);
+  console.log(commentaireReqData);
   if(req.body.message.commentaire.constructor === Object && Object.keys(req.body.message.commentaire).length === 0){
     res.send(400).send({ success: false, message: 'Veuillez remplir un champs' });
   } else {
     console.log("Valeur valide");
-    CommentaireModel.createCommentaire(CommentaireReqData, (err, forum) =>{
+    commentaireModel.createCommentaire(commentaireReqData, (err, commentaire) =>{
       if (err)
       res.send(err);
       res.json({ status: true, message: 'Commentaire créé avec succès', data: commentaire.insertId })
@@ -69,9 +69,8 @@ exports.modifyCommentaire = (req, res) => {
       );    
 };
 
-exports.deleteCommentaire = (req, res) => {
-
-    //Suppression d'un commentaire
+//Suppression d'un commentaire
+exports.deleteCommentaire = (req, res) => {    
     Commentaire.remove(req.params.idCommentaire, (err, data) => {
         if (err) {
           if (err.kind === "non trouvé") {
@@ -84,5 +83,5 @@ exports.deleteCommentaire = (req, res) => {
             });
           }
         } else res.send({ message: `Le commentaire a été supprimé avec succès!` });
-      });    
+    });    
 };

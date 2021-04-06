@@ -30,35 +30,18 @@ User.updateById = (user) => {
     });
 };
 
-//Route post login
-/*User.findOne = (req, res) => {
-    sql.query(`SELECT * FROM users WHERE pseudo = ?`, req.body.pseudo, function(error, _result, _fields){
-        if (error){
-            console.log(('échec'));
-            return res.status(401).json({ error })            
-        }
-    }) 
-    {
-        if (err) {
-            console.log('error: ', err);
-            return(err, null);
-        }
-        if (res.length) {
-            console.log('Utilisateur trouvé: ', res[0]);
-            return(null, res[0]);
-        }
-        return({ kind: 'Utilisateur non trouvé !' }, null);
-    };
-};*/
-
 //Route delete User
-User.deleteUser =(idUser, result) => {
-    sql.query(`DELETE FROM users WHERE idUser=?`,[idUser], (err, res) => {
+User.deleteUser =(user) => {
+    console.log(user);
+    sql.query(`ALTER TABLE users DROP COLUMN pseudo, email, password WHERE identifiant=?`,
+    [user.pseudo, user.email, user.password, user.identifiant], 
+    (err, res) => {
       if(err){
         console.log('Erreur lors de la suppression du profil utilisateur');
-        result(null, err);
+        return(null, err);
       } else {
-        result(null, res);
+          console.log('suppression du profil : ',  { identifiant: user.identifiant, ...user })
+            return({ identifiant: user.identifiant, ...user }, null);
       }
     })
 };

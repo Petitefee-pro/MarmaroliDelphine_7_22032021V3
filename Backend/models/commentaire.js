@@ -6,18 +6,17 @@ const Commentaire = function(commentaire) {
 };
 
 //Route post Commentaire
-Commentaire.createCommentaire = (CommentaireReqData, result) => {
-  console.log('modele: ', CommentaireReqData)  
-  sql.query(`INSERT INTO commentaires (commentaire, contenuDa)`, newCommentaire, (err, res) => {
+Commentaire.createCommentaire = (commentaireReqData, result) => {
+  console.log('modele: ', commentaireReqData)  
+  sql.query(`INSERT INTO commentaires (commentaire, commentaireDate, pseudo, idUser) VALUES(?,NOW(), ?,?)`, [commentaireReqData.commentaire, commentaireReqData.pseudo, commentaireReqData.idUser], (err, res) => {
       if (err) {
-        console.log("error: ", err);
+        console.log("Erreur lors de l'insertion d'un commentaire", err);
         result(err, null);
-        return;
+      } else {
+        console.log("Commentaire créé avec succès");
+        result(null, res);
       }
-  
-      console.log("créé un nouveau commentaire: ", { id: res.insertId, ...newCommentaire });
-      result(null, { id: res.insertId, ...newCommentaire });
-    });
+    })
 };
 
 Commentaire.updateById = (id, commentaire, result) => {

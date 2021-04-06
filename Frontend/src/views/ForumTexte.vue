@@ -19,7 +19,7 @@
             <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation" novalidate>
                 <div class="form-group col-11 col-md-10 m-0 p-1">
                     <label for="post" class="col-auto col-form-label col-form-label-sm"></label> 
-                    <textarea name="post" id="post" class="form-control form-control-lg" placeholder="Veuillez saisir un nouveau post" v-model="post" pattern="[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
+                    <textarea name="post" id="post" class="form-control form-control-lg" placeholder="Veuillez saisir un nouveau post" v-model="post" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
                     <div class="valid-feedback">Valide</div>
                     <div class="invalid-feedback"></div>
                 </div>
@@ -39,9 +39,9 @@
             </section>
             <section v-else class="d-flex flex-column" >
                 <div v-if="loading">Chargement...</div>
-                <div v-else v-for="post in info" :key="post.idForum" class="forums  col-12 m-0 p-0">
+                <div v-else v-for="post in info" :key="post.idForum" class="forums  col-12 m-0 p-0 pb-1">
                     <div class="boder border border-white rounded " >
-                        <p class="m-0 p-1">{{ post.contentuTexte }}</p>
+                        <p class="m-0 p-1">{{ post.contenuTexte }}</p>
                         <p class="align-self-end m-0 p-1">par {{ post.pseudo }}</p>
                     </div>
                     <div class="text-center pb-1">
@@ -79,7 +79,7 @@ export default {
         submitFormForum: function (){
             let pseudo = localStorage.getItem('pseudo');
             let post = this.post;
-            let regexPost = /[A-Za-z\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
+            let regexPost = /[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
             if((regexPost.test(post) === true)
             ){
                 let message = {
@@ -102,7 +102,7 @@ export default {
             fetch("http://localhost:3000/api/forum", envoi)
             .then(response => {
                 console.log(response);
-                
+                location.replace('http://localhost:8080/forum-texte')
             })            
             .catch(error => alert("Erreur : " + error));
             }

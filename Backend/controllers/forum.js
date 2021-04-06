@@ -2,25 +2,9 @@ const sql = require('../models/db');
 const forumModel = require('../models/forum');
 /*const User =require('../models/user');*/
 
-//Suppression d'un forum
-exports.deleteForum = (req, res) => {
-  forumModel.deleteForum(req.params.idForum, (err, forum) => {
-    if(err)
-    res.send(err);
-    res.json({ success: true, message: 'Forum supprimé avec succès' });
-  })
-};
-
 //Création d'un nouveau forum
-exports.createForum =(req, res) => {
-  /*const texte = req.body.message.post;
-  const pseudo = req.body.message.pseudo;
-  const post = new forumModel(texte, pseudo);
-  console.log(post);
-  console.log(pseudo);
-  console.log(texte);
-  post.insertPost();*/
-  console.log("message : ",req.body.message);
+exports.createForum = (req, res) => {
+  console.log("message : ", req.body.message);
   const forumReqData = (req.body.message);
   console.log(forumReqData);
   if(req.body.message.post.constructor === Object && Object.keys(req.body.message.post).length === 0){
@@ -33,6 +17,15 @@ exports.createForum =(req, res) => {
       res.json({ status: true, message: 'Forum créé avec succès', data: forum.insertId }) 
     })
   }
+};
+
+//Suppression d'un forum
+exports.deleteForum = (req, res) => {
+  forumModel.deleteForum(req.params.idForum, (err, forum) => {
+    if(err)
+    res.send(err);
+    res.json({ success: true, message: 'Forum supprimé avec succès' });
+  })
 };
 
 //Création d'un nouveau forum
