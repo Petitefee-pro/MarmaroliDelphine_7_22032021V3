@@ -42,15 +42,27 @@
                 <div v-else v-for="post in info" :key="post.idForum" class="forums col-12 m-0 p-0 pb-1">
                     <div class="boder border border-white rounded " >
                         <p class=" post text-white m-0 p-1">{{ post.contenuTexte }}</p>
-                        <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudo }}</p>
+                        <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudoForum }}</p>
+                    </div>
+                    <div class="comments">
+                            <h4 style="color: white; margin-left: 1em">Commentaire</h4>
+                            <div v-for="comment in post.comments" :key="comment.idCommentaire">
+                                <p style="color:lightgray; margin-left: 2em; border: 1px solid white; padding: 5px; display: inline-block">{{comment.commentaire}}</p>
+                                <p class=" pseudo text-right m-0 p-1 lead">par {{ comment.pseudoCommentaire }}</p>
+                            </div>
                     </div>
                     <div class="text-center pb-1">
                         <router-link :to="`/commentaire/${post.idForum}`" class="text-white font-weight-bold mr-2">
                             <button class="btn btn-primary btn-sm col-5"><i class="far fa-comment-dots"></i></button>
                         </router-link>
-                        <button v-if="'pseudo' === 'tata' || 'toto' || 'titi'" @click.prevent="submitDelete" class="btn btn-primary btn-sm col-5"><i class="far fa-trash-alt"></i></button>
-                    </div>                 
+                        <button v-if="'idDroit' === 1 || 'pseudo' === 'pseudoForum'" @click.prevent="submitForumDelete" class="btn btn-primary btn-sm col-5"><i class="far fa-trash-alt"></i></button>
+                    </div>   
+                    <!--<div class="boder border border-white rounded " >
+                        <p class=" post text-white m-0 p-1">{{ post.commentaire }}</p>
+                        <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudoCommentaire }}</p>
+                    </div>-->           
                 </div>
+
             </section>
         </div>   
         <div>
@@ -115,7 +127,7 @@ export default {
         },        
     
     //Suppression d'un post
-        submitDelete: function (){
+        submitForumDelete: function (){
             fetch("http://localhost:3000/api/forum/:id")
                 .then(response => {
                     console.log(response);

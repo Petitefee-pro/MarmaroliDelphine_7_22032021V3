@@ -52,7 +52,7 @@ export default {
                     pseudo: pseudo,
                     commentaire: commentaire,
                     idUser: localStorage.getItem('idUser'),
-                   // idForum: idForum
+                    idForum: this.postId
                 }
                 console.log(message);
                 console.log(commentaire)
@@ -72,7 +72,7 @@ export default {
             fetch("http://localhost:3000/api/commentaire/", envoi)
             .then(response => {
                 console.log(response);
-                //location.replace('http://localhost:8080/forum-texte')
+                location.replace('http://localhost:8080/forum-texte')
             })            
             .catch(error => alert("Erreur : " + error));
             }

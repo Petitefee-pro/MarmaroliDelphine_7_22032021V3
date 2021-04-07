@@ -68,13 +68,13 @@ export default ({
                 
                 //Envoi du formulaire pour la désincription
                 /*fetch("http://localhost:3000/api/user/unsubscribe", envoi)
-                .then(res = res.json())
-                .then(response => {
-                    console.log(response);
-                    localStorage.clear();
-                    location.replace('http://localhost:8080');
-                })
-                .catch(error => alert("Erreur : " + error));*/
+                    .then(res = res.json())
+                    .then(response => {
+                        console.log(response);
+                        localStorage.clear();
+                        location.replace('http://localhost:8080');
+                    })
+                    .catch(error => alert("Erreur : " + error));*/
             }
         }
     }

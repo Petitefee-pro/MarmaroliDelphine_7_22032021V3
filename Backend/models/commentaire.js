@@ -8,7 +8,9 @@ const Commentaire = function(commentaire) {
 //Route post Commentaire
 Commentaire.createCommentaire = (commentaireReqData, result) => {
   console.log('modele: ', commentaireReqData)  
-  sql.query(`INSERT INTO commentaires (commentaire, commentaireDate, pseudo, idUser, idForum) VALUES(?,NOW(), ?,?, ?)`, [commentaireReqData.commentaire, commentaireReqData.pseudo, commentaireReqData.idUser], (err, res) => {
+  sql.query(`INSERT INTO commentaires (commentaire, commentaireDate, pseudo, idUser, idForum) VALUES(?,NOW(), ?,?, ?)`, 
+  [commentaireReqData.commentaire, commentaireReqData.pseudo, commentaireReqData.idUser, commentaireReqData.idForum], 
+  (err, res) => {
       //Rajouter idForum à INSERT INTO + un ?
       if (err) {
         console.log("Erreur lors de l'insertion d'un commentaire", err);
