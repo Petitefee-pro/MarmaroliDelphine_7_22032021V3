@@ -27,17 +27,21 @@ User.updateById = (user) => {
     });
 };
 
-//Route delete User
-User.deleteUser =(user) => {
+//Route delete Profil
+User.deleteProfil = (user) => {
     console.log(user);
-    sql.query(`UPDATE users SET pseudo = "NULL", email = "NULL", password = "NULL" WHERE identifiant = ?`,
-    [user.pseudo, user.email, user.password, user.identifiant], 
+    sql.query(`UPDATE users SET email = "NULL", password = "NULL" WHERE identifiant = ?`,
+    [user.email, user.password, user.identifiant], 
     (err, res) => {
-      if(err){
-        console.log('Erreur lors de la suppression du profil utilisateur');
-        return(null, err);
+        if(err){
+            console.log('Erreur lors de la suppression du profil utilisateur');
+            return(null, err);
+        }
+        if(res.affectedRows == 0){         
+            console.log('Utilisateurs non trouvé !')
+            return({ kind: 'Utilisateur non trouvé !' }, null);    
       } else {
-          console.log('suppression du profil : ',  { identifiant: user.identifiant, ...user })
+            console.log('suppression du profil : ',  { identifiant: user.identifiant, ...user })
             return({ identifiant: user.identifiant, ...user }, null);
       }
     })

@@ -24,7 +24,7 @@
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-2 text-center">
-                    <button type="submit" @click.prevent="submitFormCommentaire" class="commenter btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Commenter</button>
+                    <button type="submit" @click.prevent="submitFormCommentaire" class="commenter btn btn-secondary btn-lg col-12 col-md-5 mt-3 mb-2">Commenter</button>
                 </div>            
             </form>
         </div>
@@ -69,7 +69,7 @@ export default {
                 console.log(envoi);
             
             //Envoi du commentaire
-            fetch("http://localhost:3000/api/commentaire/", envoi)
+            fetch("http://localhost:3000/api/commentaire", envoi)
             .then(response => {
                 console.log(response);
                 location.replace('http://localhost:8080/forum-texte')

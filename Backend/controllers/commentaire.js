@@ -20,7 +20,7 @@ exports.createCommentaire = (req, res) => {
 
 //Suppression d'un commentaire
 exports.deleteCommentaire = (req, res) => {    
-    Commentaire.remove(req.params.idCommentaire, (err, data) => {
+    Commentaire.delete(req.params.idCommentaire, (err, data) => {
         if (err) {
           if (err.kind === "non trouvé") {
             res.status(404).send({

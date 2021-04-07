@@ -8,10 +8,9 @@ const Commentaire = function(commentaire) {
 //Route post Commentaire
 Commentaire.createCommentaire = (commentaireReqData, result) => {
   console.log('modele: ', commentaireReqData)  
-  sql.query(`INSERT INTO commentaires (commentaire, commentaireDate, pseudo, idUser, idForum) VALUES(?,NOW(), ?,?, ?)`, 
+  sql.query(`INSERT INTO commentaires (commentaire, commentaireDate, pseudoForum, idUser, idForum) VALUES(?,NOW(), ?,?, ?)`, 
   [commentaireReqData.commentaire, commentaireReqData.pseudo, commentaireReqData.idUser, commentaireReqData.idForum], 
-  (err, res) => {
-      //Rajouter idForum à INSERT INTO + un ?
+  (err, res) => {      
       if (err) {
         console.log("Erreur lors de l'insertion d'un commentaire", err);
         result(err, null);
@@ -23,8 +22,8 @@ Commentaire.createCommentaire = (commentaireReqData, result) => {
 };
 
 //Route delete Commentaire
-Commentaire.remove = (id, result) => {
-    sql.query(`DELETE FROM commentaires WHERE id = ?`, id, (err, res) => {
+Commentaire.delete = (id, result) => {
+    sql.query(`DELETE FROM commentaires WHERE idCommentaire = ?`, idCommentaire, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -35,7 +34,7 @@ Commentaire.remove = (id, result) => {
         result({ kind: "non trouvé" }, null);
         return;
       }  
-      console.log("effacé le commentaire avec l'id: ", id);
+      console.log("effacé le commentaire avec l'id: ", idCommentaire);
       result(null, res);
     });
 };

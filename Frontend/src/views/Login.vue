@@ -14,7 +14,7 @@
                 <div class="invalid-feedback">Veuillez saisir votre mot de passe</div>
             </div>
             <div class="form-group col-12 text-center m-2">
-                <button type="submit" @click.prevent="submitFormLogin" class="btn btn-primary btn-lg mt-3 mb-2">Se connecter</button>
+                <button type="submit" @click.prevent="submitFormLogin" class="btn btn-secondary btn-lg mt-3 mb-2">Se connecter</button>
             </div>
             <p class="inscription text-center text-white col-9 mb-4">
                 Vous n'avez pas encore de compte, <router-link to="/signup">inscrivez-vous</router-link>.

@@ -20,13 +20,15 @@
                 <div class="invalid-feedback">Veuillez saisir votre mot de passe</div>
             </div>
             <div class="form-group col-8 col-md-8 col-lg-9 col-xl-11 mb-4 text-center">
-                <button type="submit" @click.prevent="submitFormUnsubscribe" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Se désinscrire</button>
+                <button type="submit" @click.prevent="submitFormUnsubscribe" class="btn btn-secondary btn-lg col-12 col-md-5 mt-3 mb-2">Se désinscrire</button>
             </div>
         </form>
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 
 export default ({
     name: 'unsubscribe', 
@@ -55,26 +57,23 @@ export default ({
                     password: password
                 };
                 console.log(unsubscribe);
-                const envoi = {
-                    method: 'POST', 
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body : JSON.stringify({ unsubscribe }),
-                    mode: 'cors',
-                    cache: 'default'
-                };
-                console.log(envoi);
-                
+
                 //Envoi du formulaire pour la désincription
-                /*fetch("http://localhost:3000/api/user/unsubscribe", envoi)
-                    .then(res = res.json())
-                    .then(response => {
-                        console.log(response);
-                        localStorage.clear();
-                        location.replace('http://localhost:8080');
-                    })
-                    .catch(error => alert("Erreur : " + error));*/
+                axios.post("http://localhost:3000/api/user/delete", JSON.stringify({
+                    identifiant: identifiant,
+                    email: email,
+                    password: password
+                }), {
+                    headers: {
+                        "Content-Type": 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log(response);
+                    //localStorage.clear();
+                    //location.replace('http://localhost:8080');
+                })  
+                .catch(error => alert("Erreur : " + error));
             }
         }
     }

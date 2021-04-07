@@ -10,7 +10,7 @@ exports.signup = (req, res, next) => {
         console.log(_result)
         if (_result.length > 0 ){
             bcrypt.hash(req.body.password, 10)
-            .then(hash =>{
+            .then(hash => {
                 const user = new User({
                     identifiant: req.body.identifiant,
                     pseudo: req.body.pseudo,
@@ -18,11 +18,24 @@ exports.signup = (req, res, next) => {
                     password: hash
                 })
                 User.updateById(user)
-                .then(user=>{
-                    res.status(200).json({success: "users ajouter avec succès"})
+                .then(user => {
+                    const idUser = results[0].idUser;
+                    const idDroit  = results[0].idUser;
+                    console.log('ok' + idUser);
+                    jwt.sign({
+                        idUser : idUser,
+                        pseudo: pseudo
+                    },"vfvfkohpovdfvdfvuhdzhvlkzehgvzeghvezghvkledv",(err, token)=>{
+                    console.log(token)
+                    if(err){
+                        console.log('error')
+                        res.status(400).json({error: 'erreur lors de la génération du token !'})
+                    }
+                    res.status(200).json({token, idUser : idUser, pseudo, idDroit})
                     console.log(user);
-                })
+                    })
                 .catch(err => console.log(err))
+                })    
             })
         } else {
             return res.status(401).json({ message: "impossible de trouver l'utilisateur !" })            
@@ -52,14 +65,15 @@ exports.login = async function(req, res, next){
                 console.log('ok' + idUser);
                 jwt.sign({
                     idUser : idUser,
-                    pseudo: pseudo
+                    pseudo: pseudo, 
+                    idDroit: idDroit
                 },"vfvfkohpovdfvdfvuhdzhvlkzehgvzeghvezghvkledv",(err, token)=>{
                     console.log(token)
                     if(err){
                         console.log('error')
                         res.status(400).json({error: 'erreur lors de la génération du token !'})
                     }
-                    res.status(200).json({token, idUser : idUser, pseudo, idDroit})
+                    res.status(200).json({token, idUser : idUser, pseudo, idDroit : idDroit})
                 })       
             }
         });
@@ -71,23 +85,23 @@ exports.login = async function(req, res, next){
 
 //Suppression d'un profil utilisateur
 exports.deleteUser = (req, res) => {
-    const identifiant = req.body.unsubscribe.identifiant;
-    const email = req.body.unsubscribe.email; 
-    const password = req.body.unsubscribe.password;
+    const identifiant = req.body.identifiant;
+    const email = req.body.email; 
+    const password = req.body.password;
     console.log(req.body);
     console.log(identifiant);
     console.log(email);
     console.log(password);
     if(identifiant && email && password){
-        sql.query(`SELECT * FROM users WHERE email = ?`, pseudo , function(error, results, fields) {
+        sql.query(`SELECT * FROM users WHERE identifiant = ?`, identifiant , function(error, results, fields) {
             if (!results || !(bcrypt.compare(password, results[0].password) )) {
                 res.status(401).json({ 
                     message: 'Mot de passe ou pseudo sont incorrects !'                         
                 })                                                         
             } else {
-                User.deleteUser() 
-                    .then(user=>{
-                        res.status(200).json({success: "users ajouter avec succès"})
+                User.deleteProfil() 
+                    .then(user => {
+                        res.status(200).json({success: "users supprimé avec succès"})
                         console.log(user);
                     })
                     .catch(err => console.log(err))

@@ -30,10 +30,8 @@ exports.deleteForum = (req, res) => {
 //Récupération de tous les forums et commentaires
 exports.getAllForums = (req, res) => {
   let index = 0
-  sql.query(`SELECT * FROM forums`, 
+  sql.query(`SELECT * FROM forums ORDER BY contenuDate DESC`, 
   (err, result) => { 
-  //Requête à mettre en place une fois que la route post des commentaires 
-  //SELECT forums.contenuText, forums.pseudo, commentaires.commentaire, commentaires.pseudo FRM forums INNER JOIN commentaires ON forums.idForum = commentaires.idForum
     if (err) {
       console.log("Erreur lors de la récupération des forums ", err);
       res.status(500).json(err)

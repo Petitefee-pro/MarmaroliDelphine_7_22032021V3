@@ -36,7 +36,7 @@ export default {
 <style lang="scss">
 body {
   margin: 0 auto;
-  background-color: #3762AF;
+  background-color: #052258;
 }
 #app {
   margin: 0 auto

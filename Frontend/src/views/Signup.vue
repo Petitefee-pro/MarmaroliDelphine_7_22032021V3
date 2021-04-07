@@ -26,7 +26,7 @@
                 <div class="invalid-feedback">Veuillez saisir un mot de passe fort contenant entre 8 et 15 caractères avec au moins, 1 lettre minuscule, 1 lettre majuscule, 1 chiffre et 1 caractère spécial</div>
             </div>
             <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-4 text-center">
-                <button type="submit" @click.prevent="submitFormSignup" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">S'inscrire</button>
+                <button type="submit" @click.prevent="submitFormSignup" class="btn btn-secondary btn-lg col-12 col-md-5 mt-3 mb-2">S'inscrire</button>
             </div>            
         </form>
     </div>
@@ -85,7 +85,10 @@ export default {
                 })
                 .then(response => {
                     console.log(response);
-                    localStorage.setItem('pseudo', JSON.stringify(pseudo));
+                    localStorage.setItem('idUser', response.idUser);
+                    localStorage.setItem('pseudo', response.pseudo);
+                    localStorage.setItem('token', response.token);
+                    localStorage.setItem('idDroit', response.idDroit);
                     location.replace('http://localhost:8080/forum')
                 })  
                 .catch(error => alert("Erreur : " + error));

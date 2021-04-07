@@ -13,24 +13,23 @@
                 <router-link class="nav-link p-1 text-white font-weight-bold" to="/forum-multimedia">Forum multimédia</router-link> 
             </li>
         </ul>  
-        <view-routeur></view-routeur>
         <h1 class="text-center text-white">Forum Texte</h1>
         <div class=" formulaire border border-white rounded">
             <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation p-0" novalidate>
                 <div class="form-group col-11 col-md-10 m-0 pr-1 pl-1">
                     <label for="post" class="col-auto col-form-label col-form-label-sm"></label> 
-                    <textarea name="post" id="post" class=" placeholder form-control form-control-lg" placeholder="Veuillez saisir un nouveau post" v-model="post" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
+                    <textarea name="post" id="post" class=" placeholder form-control form-control-sm" placeholder="Veuillez saisir un nouveau post" v-model="postMessage" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
                     <div class="valid-feedback">Valide</div>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-2 text-center">
-                    <button type="submit" @click.prevent="submitFormForum" class="publier btn btn-primary btn-lg col-12 col-md-5 ">Publier</button>
+                    <button type="submit" @click.prevent="submitFormForum" class="publier btn btn-secondary btn-sm col-10 col-md-5 ">Publier</button>
                 </div>            
             </form>
         </div>
         <!--<div class="border border-white rounded">
             <router-link class="text-white font-weight-bold mr-2" to="/post">
-                <button class="btn btn-primary btn-sm col-12">Que voulez-vous dire ?</button>
+                <button class="btn btn-secondary btn-sm col-12">Que voulez-vous dire ?</button>
             </router-link>
         </div>-->
         <div class="pt-1">
@@ -43,27 +42,23 @@
                     <div class="border border border-white rounded " >
                         <p class=" post text-white m-0 p-1">{{ post.contenuTexte }}</p>
                         <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudoForum }}</p>
-                    </div>
-                    <div class="comments align-self-end">
-                            <div v-for="comment in post.comments" :key="comment.idCommentaire" class="border col-10 border border-white rounded">
-                                <p class="comment text-white p-1 m-0">{{comment.commentaire}}</p>
-                                <p class="pseudo text-right m-0 p-1 lead">par {{ comment.pseudoCommentaire }}</p>
-                                <button  @click.prevent="submitForumDelete" class="suppPost btn btn-primary btn-sm col-2"><i class="far fa-trash-alt"></i></button>
+                    </div>                  
+                    <div class="comments ml-3">
+                            <div v-for="comment in post.comments" :key="comment.idCommentaire" class="row border border-white rounded mr-4">
+                                <div class="col-11">
+                                    <p class="comment col- text-white p-1 m-0">{{comment.commentaire}}</p>
+                                    <p class="pseudo text-right m-0 p-1 lead">par {{ comment.pseudoCommentaire }}</p>
+                                </div>     
+                                <button v-if="post.pseudoCommentaire === user.pseudo || user.idDroit == 1" @click.prevent="submitCommentaireDelete" class="suppPost btn btn-secondary btn-sm col-1"><i class="far fa-trash-alt"></i></button>
                             </div>
-                            <!--v-if="post.pseudo === user.pseudo || post.idDroit == 1"-->
                     </div>
-                    <div class="text-center pb-1">
+                    <div class="text-left pb-1">
                         <router-link :to="`/commentaire/${post.idForum}`" class="text-white font-weight-bold mr-2">
-                            <button class="btnComment btn btn-primary btn-sm col-2"><i class="far fa-comment-dots"></i></button>
+                            <button class="btnComment btn btn-secondary btn-sm col-1"><i class="far fa-comment-dots"></i></button>
                         </router-link>
-                        <button  @click.prevent="submitForumDelete" class="suppComment btn btn-primary btn-sm col-2"><i class="far fa-trash-alt"></i></button>
-                    </div>   
-                    <!--<div class="border border border-white rounded " >
-                        <p class=" post text-white m-0 p-1">{{ post.commentaire }}</p>
-                        <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudoCommentaire }}</p>
-                    </div>-->           
+                        <button v-if="post.pseudoForum === user.pseudo || user.idDroit == 1" @click.prevent="submitForumDelete" class="suppComment btn btn-secondary btn-sm col-1"><i class="far fa-trash-alt"></i></button>
+                    </div>             
                 </div>
-
             </section>
         </div>   
         <div>
@@ -83,6 +78,8 @@ export default {
     data(){
         return {
             pseudo:'',
+            postMessage:'',
+            post:{},
             info: null,
             loading: true,
             errored: false,       
@@ -96,7 +93,7 @@ export default {
 
             //Vérification par regex du formulaire de dépôt d'un post
             let pseudo = localStorage.getItem('pseudo');
-            let post = this.post;
+            let post = this.postMessage;
             let regexPost = /[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
             if((regexPost.test(post) === true)
             ){
@@ -126,23 +123,48 @@ export default {
             })            
             .catch(error => alert("Erreur : " + error));
             }
-        },        
+        },   
     
     //Suppression d'un post
         submitForumDelete: function (){
-            fetch("http://localhost:3000/api/forum/:id")
+            axios.delete("http://localhost:3000/api/forum/:id",JSON.stringify({
+                    idForum: this.idForum,
+                }),
+
+            {
+                headers: {
+                    "Content-Type": 'application/json'
+                }
+            })
                 .then(response => {
                     console.log(response);
-                    location.replace('http://localhost:8080/forum-texte')
+                    //location.replace('http://localhost:8080/forum-texte')
                 })            
                 .catch(error => alert("Erreur : " + error));
+        },
+
+    //Suppression d'un commentaire
+        submitCommentaireDelete: function (){
+            axios.delete("http://localhost:3000/api/commentaire/:id",JSON.stringify({
+                    idCommentaire: this.idCommentaire,
+                }), 
+            {
+                headers: {
+                    "Content-Type": 'application/json'
+                }
+            })    
+            .then(response => {
+                console.log(response);
+                //location.replace('http://localhost:8080/forum-texte')
+            })            
+            .catch(error => alert("Erreur : " + error));
         },
     },
     //Affichage des posts et des commentaires
     created() {
         this.user.pseudo = localStorage.getItem('pseudo')
-        axios
-            .get ("http://localhost:3000/api/forum/", {
+        this.user.idDroit = localStorage.getItem('idDroit')
+        axios.get ("http://localhost:3000/api/forum/", {
                 headers: {
                     "authorization": "Bearer " + localStorage.getItem('token')
                 }
@@ -175,20 +197,20 @@ export default {
     line-height: 50%;
     vertical-align: middle;
 }
-.post{
+.postMessage{
     font-size: 14px;
     font-family: 'Times New Roman', Times, serif;
 }
 .btnComment{
-    line-height: 50%;
+    line-height: 10%;
     vertical-align: middle;
 }
 .suppComment{
-    line-height: 50%;
+    line-height: 10%;
     vertical-align: middle;
 }
 .suppPost{
-    line-height: 50%;
+    line-height: 10%;
     vertical-align: middle;
 }
 .pseudo{
@@ -200,13 +222,14 @@ export default {
     font-size: 10px;
     font-style: italic;
     color: rgb(204, 216, 236);
+    
 }
 .comments{
     line-height: 50%;
     vertical-align: middle;
 }
 .border{
-    line-height: 50%;
+    line-height: auto;
     vertical-align: middle;
 }
 
