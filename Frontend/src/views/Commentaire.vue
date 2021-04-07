@@ -19,12 +19,12 @@
             <form id="forum" @submit.prevent="submitFormCommentaire" class="row justify-content-center was-validated needs-validation" novalidate>
                 <div class="form-group col-11 col-md-10 m-0 p-1">
                     <label for="commentaire" class="col-auto col-form-label col-form-label-sm"></label> 
-                    <textarea name="commentaire" id="commentaire" class="form-control form-control-lg" placeholder="Veuillez saisir un commentaire" v-model="commentaire" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
+                    <textarea name="commentaire" id="commentaire" class="placeholder form-control form-control-lg" placeholder="Veuillez saisir un commentaire" v-model="commentaire" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
                     <div class="valid-feedback">Valide</div>
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-2 text-center">
-                    <button type="submit" @click.prevent="submitFormCommentaire" class="btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Commenter</button>
+                    <button type="submit" @click.prevent="submitFormCommentaire" class="commenter btn btn-primary btn-lg col-12 col-md-5 mt-3 mb-2">Commenter</button>
                 </div>            
             </form>
         </div>
@@ -84,6 +84,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.placeholder{
+    font-size: 12px;
+    font-style: italic;
+    line-height: 50%;
+    vertical-align: middle;
+}
+.commenter{
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 50%;
+    vertical-align: middle;
+}
 
 </style>

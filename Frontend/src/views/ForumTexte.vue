@@ -40,24 +40,25 @@
             <section v-else class="d-flex flex-column" >
                 <div v-if="loading">Chargement...</div>
                 <div v-else v-for="post in info" :key="post.idForum" class="forums col-12 m-0 p-0 pb-1">
-                    <div class="boder border border-white rounded " >
+                    <div class="border border border-white rounded " >
                         <p class=" post text-white m-0 p-1">{{ post.contenuTexte }}</p>
                         <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudoForum }}</p>
                     </div>
-                    <div class="comments">
-                            <h4 style="color: white; margin-left: 1em">Commentaire</h4>
-                            <div v-for="comment in post.comments" :key="comment.idCommentaire">
-                                <p style="color:lightgray; margin-left: 2em; border: 1px solid white; padding: 5px; display: inline-block">{{comment.commentaire}}</p>
-                                <p class=" pseudo text-right m-0 p-1 lead">par {{ comment.pseudoCommentaire }}</p>
+                    <div class="comments align-self-end">
+                            <div v-for="comment in post.comments" :key="comment.idCommentaire" class="border col-10 border border-white rounded">
+                                <p class="comment text-white p-1 m-0">{{comment.commentaire}}</p>
+                                <p class="pseudo text-right m-0 p-1 lead">par {{ comment.pseudoCommentaire }}</p>
+                                <button  @click.prevent="submitForumDelete" class="suppPost btn btn-primary btn-sm col-2"><i class="far fa-trash-alt"></i></button>
                             </div>
+                            <!--v-if="post.pseudo === user.pseudo || post.idDroit == 1"-->
                     </div>
                     <div class="text-center pb-1">
                         <router-link :to="`/commentaire/${post.idForum}`" class="text-white font-weight-bold mr-2">
-                            <button class="btn btn-primary btn-sm col-5"><i class="far fa-comment-dots"></i></button>
+                            <button class="btnComment btn btn-primary btn-sm col-2"><i class="far fa-comment-dots"></i></button>
                         </router-link>
-                        <button v-if="'idDroit' === 1 || 'pseudo' === 'pseudoForum'" @click.prevent="submitForumDelete" class="btn btn-primary btn-sm col-5"><i class="far fa-trash-alt"></i></button>
+                        <button  @click.prevent="submitForumDelete" class="suppComment btn btn-primary btn-sm col-2"><i class="far fa-trash-alt"></i></button>
                     </div>   
-                    <!--<div class="boder border border-white rounded " >
+                    <!--<div class="border border border-white rounded " >
                         <p class=" post text-white m-0 p-1">{{ post.commentaire }}</p>
                         <p class=" pseudo text-right m-0 p-1 lead">par {{ post.pseudoCommentaire }}</p>
                     </div>-->           
@@ -84,7 +85,8 @@ export default {
             pseudo:'',
             info: null,
             loading: true,
-            errored: false            
+            errored: false,       
+            user:{}     
         }
     },
     methods:{        
@@ -138,6 +140,7 @@ export default {
     },
     //Affichage des posts et des commentaires
     created() {
+        this.user.pseudo = localStorage.getItem('pseudo')
         axios
             .get ("http://localhost:3000/api/forum/", {
                 headers: {
@@ -148,7 +151,7 @@ export default {
                 console.log(response)
                 this.loading = false
                 this.error = false
-                this.info = response.data.result
+                this.info = response.data.result                
             })                
             .catch(error => {
                 console.log(error)
@@ -163,19 +166,48 @@ export default {
 .placeholder{
     font-size: 12px;
     font-style: italic;
+    line-height: 50%;
+    vertical-align: middle;
 }
 .publier{
     font-size: 14px;
     font-weight: bold;
+    line-height: 50%;
+    vertical-align: middle;
 }
 .post{
     font-size: 14px;
     font-family: 'Times New Roman', Times, serif;
 }
+.btnComment{
+    line-height: 50%;
+    vertical-align: middle;
+}
+.suppComment{
+    line-height: 50%;
+    vertical-align: middle;
+}
+.suppPost{
+    line-height: 50%;
+    vertical-align: middle;
+}
 .pseudo{
     font-size: 10px;
     font-style: italic;
     color: rgb(204, 216, 236);
+}
+.comment{
+    font-size: 10px;
+    font-style: italic;
+    color: rgb(204, 216, 236);
+}
+.comments{
+    line-height: 50%;
+    vertical-align: middle;
+}
+.border{
+    line-height: 50%;
+    vertical-align: middle;
 }
 
 </style>

@@ -48,7 +48,8 @@ exports.login = async function(req, res, next){
                 })                                                         
             } else {
                 const idUser = results[0].idUser;
-                console.log('okok' + idUser);
+                const idDroit  = results[0].idUser;
+                console.log('ok' + idUser);
                 jwt.sign({
                     idUser : idUser,
                     pseudo: pseudo
@@ -58,7 +59,7 @@ exports.login = async function(req, res, next){
                         console.log('error')
                         res.status(400).json({error: 'erreur lors de la génération du token !'})
                     }
-                    res.status(200).json({token, idUser : idUser, pseudo})
+                    res.status(200).json({token, idUser : idUser, pseudo, idDroit})
                 })       
             }
         });

@@ -48,7 +48,7 @@ exports.getAllForums = (req, res) => {
           index++
           console.log("post index: ", index, result)
           
-          if (index == result.length - 1) {
+          if (index == result.length) {
             res.status(200).json({result});
           }
         })
