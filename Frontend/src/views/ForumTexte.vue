@@ -76,6 +76,8 @@ export default {
         }
     },
     methods:{        
+
+        //Publication d'un post
         submitFormForum: function (){
 
             //Vérification par regex du formulaire de dépôt d'un post
@@ -111,17 +113,17 @@ export default {
             .catch(error => alert("Erreur : " + error));
             }
         },        
+    
+    //Suppression d'un post
+        submitDelete: function (){
+            fetch("http://localhost:3000/api/forum/:id")
+                .then(response => {
+                    console.log(response);
+                    location.replace('http://localhost:8080/forum-texte')
+                })            
+                .catch(error => alert("Erreur : " + error));
+        },
     },
-
-    submitDelete: function (){
-        fetch("http://localhost:3000/api/forum/:id")
-            .then(response => {
-                console.log(response);
-                location.replace('http://localhost:8080/forum-texte')
-            })            
-            .catch(error => alert("Erreur : " + error));
-    },
-
     //Affichage des posts et des commentaires
     created() {
         axios

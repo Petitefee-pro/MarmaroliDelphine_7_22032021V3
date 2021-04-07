@@ -52,7 +52,7 @@ export default {
                     pseudo: pseudo,
                     commentaire: commentaire,
                     idUser: localStorage.getItem('idUser'),
-                    /*idForum: idForum*/
+                   // idForum: idForum
                 }
                 console.log(message);
                 console.log(commentaire)

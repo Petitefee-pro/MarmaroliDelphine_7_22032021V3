@@ -30,7 +30,7 @@ User.updateById = (user) => {
 //Route delete User
 User.deleteUser =(user) => {
     console.log(user);
-    sql.query(`ALTER TABLE users DROP COLUMN pseudo, email, password WHERE identifiant=?`,
+    sql.query(`UPDATE users SET pseudo = "NULL", email = "NULL", password = "NULL" WHERE identifiant = ?`,
     [user.pseudo, user.email, user.password, user.identifiant], 
     (err, res) => {
       if(err){
