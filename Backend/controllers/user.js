@@ -4,7 +4,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 //Création du profil utilisateur
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
     console.log("body: ", req.body.identifiant);
     sql.query(`SELECT * FROM users WHERE identifiant = ?`, req.body.identifiant, function(error, _result, _fields){
         console.log(_result)
@@ -17,25 +17,12 @@ exports.signup = (req, res, next) => {
                     email: req.body.email,
                     password: hash
                 })
-                User.updateById(user)
-                .then(user => {
-                    const idUser = results[0].idUser;
-                    const idDroit  = results[0].idDroit;
-                    console.log('ok' + idUser);
-                    jwt.sign({
-                        idUser : idUser,
-                        pseudo: pseudo
-                    },"vfvfkohpovdfvdfvuhdzhvlkzehgvzeghvezghvkledv",(err, token)=>{
-                    console.log(token)
-                    if(err){
-                        console.log('error')
-                        res.status(400).json({error: 'erreur lors de la génération du token !'})
-                    }
-                    res.status(200).json({token, idUser : idUser, pseudo, idDroit})
-                    console.log(user);
-                    })
-                .catch(err => console.log(err))
-                })    
+                User.updateById(user, function(){ //sucess
+                    res.status(201).json({mes: "utilisateur ajouté avec succés !"})
+                }, function(err){ //error
+                    res.status(500).json({error: err})
+                })
+               
             })
         } else {
             return res.status(401).json({ message: "impossible de trouver l'utilisateur !" })            

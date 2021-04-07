@@ -8,22 +8,21 @@ const User = function(user){
 };
 
 //Route post signup
-User.updateById = (user) => {
+User.updateById = (user, success, error) => {
     console.log(user)
     sql.query(`UPDATE users SET pseudo = ?, email = ?, password = ? WHERE identifiant = ?`, 
     [user.pseudo, user.email, user.password, user.identifiant],
     (err, res) => {
         if (err){
             console.log("error: ", err);            
-            return(err, null);
+            error(err)
         }
         if(res.affectedRows == 0){         
-            console.log('Utilisateurs non trouvé !')
-            return({ kind: 'Utilisateur non trouvé !' }, null);            
+            error(err)           
         } else{
-            console.log('création profil : ', { identifiant: user.identifiant, ...user })
-            return({ identifiant: user.identifiant, ...user}, null);
+            success()
         }
+        
     });
 };
 

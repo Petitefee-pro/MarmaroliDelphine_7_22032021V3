@@ -85,11 +85,7 @@ export default {
                 })
                 .then(response => {
                     console.log(response);
-                    localStorage.setItem('idUser', response.idUser);
-                    localStorage.setItem('pseudo', response.pseudo);
-                    localStorage.setItem('token', response.token);
-                    localStorage.setItem('idDroit', response.idDroit);
-                    location.replace('http://localhost:8080/forum')
+                    location.replace('http://localhost:8080/login')
                 })  
                 .catch(error => alert("Erreur : " + error));
             } else{
