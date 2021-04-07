@@ -20,7 +20,7 @@ exports.signup = (req, res, next) => {
                 User.updateById(user)
                 .then(user => {
                     const idUser = results[0].idUser;
-                    const idDroit  = results[0].idUser;
+                    const idDroit  = results[0].idDroit;
                     console.log('ok' + idUser);
                     jwt.sign({
                         idUser : idUser,
@@ -61,7 +61,7 @@ exports.login = async function(req, res, next){
                 })                                                         
             } else {
                 const idUser = results[0].idUser;
-                const idDroit  = results[0].idUser;
+                const idDroit  = results[0].idDroit;
                 console.log('ok' + idUser);
                 jwt.sign({
                     idUser : idUser,

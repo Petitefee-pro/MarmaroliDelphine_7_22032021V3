@@ -19,18 +19,18 @@ exports.createCommentaire = (req, res) => {
 };
 
 //Suppression d'un commentaire
-exports.deleteCommentaire = (req, res) => {    
-    Commentaire.delete(req.params.idCommentaire, (err, data) => {
-        if (err) {
-          if (err.kind === "non trouvé") {
-            res.status(404).send({
-              message: `Commentaire non trouvé avec l'id ${req.params.idCommentaire}.`
-            });
-          } else {
-            res.status(500).send({
-              message: "Impossible de supprimer le commentaire avec l'id " + req.params.idCommentaire
-            });
-          }
-        } else res.send({ message: `Le commentaire a été supprimé avec succès!` });
-    });    
+exports.deleteCommentaire = (req, res) => {     
+  commentaireModel.delete(req.params.id, (err, data) => {
+      if (err) {
+        if (err.kind === "non trouvé") {
+          res.status(404).send({
+            message: "Commentaire non trouvé avec l'id ${req.params.id}."
+          });
+        } else {
+          res.status(500).send({
+            message: "Impossible de supprimer le commentaire avec l'id " + req.params.id
+          });
+        }
+      } else res.send({ message: "Le commentaire a été supprimé avec succès!" });
+  });    
 };

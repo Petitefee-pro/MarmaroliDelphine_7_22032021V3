@@ -49,7 +49,7 @@
                                     <p class="comment col- text-white p-1 m-0">{{comment.commentaire}}</p>
                                     <p class="pseudo text-right m-0 p-1 lead">par {{ comment.pseudoCommentaire }}</p>
                                 </div>     
-                                <button v-if="post.pseudoCommentaire === user.pseudo || user.idDroit == 1" @click.prevent="submitCommentaireDelete" class="suppPost btn btn-secondary btn-sm col-1"><i class="far fa-trash-alt"></i></button>
+                                <button v-if="comment.pseudoCommentaire === user.pseudo || user.idDroit == 1" @click.prevent="submitCommentaireDelete(comment.idCommentaire)" class="suppPost btn btn-secondary btn-sm col-1"><i class="far fa-trash-alt"></i></button>
                             </div>
                     </div>
                     <div class="text-left pb-1">
@@ -144,18 +144,15 @@ export default {
         },
 
     //Suppression d'un commentaire
-        submitCommentaireDelete: function (){
-            axios.delete("http://localhost:3000/api/commentaire/:id",JSON.stringify({
-                    idCommentaire: this.idCommentaire,
-                }), 
-            {
-                headers: {
-                    "Content-Type": 'application/json'
+        submitCommentaireDelete: function (id){
+            axios.delete("http://localhost:3000/api/commentaire/" + id, {
+                headers:{
+                    "authorization" : "Bearer " + localStorage.getItem("token")
                 }
             })    
             .then(response => {
                 console.log(response);
-                //location.replace('http://localhost:8080/forum-texte')
+                location.replace('http://localhost:8080/forum-texte')
             })            
             .catch(error => alert("Erreur : " + error));
         },
