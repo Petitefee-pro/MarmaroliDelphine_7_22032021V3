@@ -21,8 +21,7 @@ exports.signup = async (req, res, next) => {
                     res.status(201).json({mes: "utilisateur ajouté avec succés !"})
                 }, function(err){ //error
                     res.status(500).json({error: err})
-                })
-               
+                })               
             })
         } else {
             return res.status(401).json({ message: "impossible de trouver l'utilisateur !" })            
@@ -86,12 +85,14 @@ exports.deleteUser = (req, res) => {
                     message: 'Mot de passe ou pseudo sont incorrects !'                         
                 })                                                         
             } else {
-                User.deleteProfil() 
-                    .then(user => {
-                        res.status(200).json({success: "users supprimé avec succès"})
-                        console.log(user);
-                    })
-                    .catch(err => console.log(err))
+                const user = new User({
+                    identifiant: identifiant,
+                })
+                User.deleteProfil(user, function(){ //sucess
+                    res.status(201).json({mes: "utilisateur suupprimé avec succés !"})
+                }, function(err){ //error
+                    res.status(500).json({error: err})
+                })
             }
         })
     } else {

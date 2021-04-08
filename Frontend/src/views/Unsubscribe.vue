@@ -70,8 +70,8 @@ export default ({
                 })
                 .then(response => {
                     console.log(response);
-                    //localStorage.clear();
-                    //location.replace('http://localhost:8080');
+                    localStorage.clear();
+                    location.replace('http://localhost:8080');
                 })  
                 .catch(error => alert("Erreur : " + error));
             }
