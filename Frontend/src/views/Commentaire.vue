@@ -97,5 +97,4 @@ export default {
     line-height: 50%;
     vertical-align: middle;
 }
-
 </style>

@@ -29,7 +29,7 @@ exports.signup = async (req, res, next) => {
     })
 };
 
-//Connection au profil utilisateur
+//Connexion au profil utilisateur
 exports.login = async function(req, res, next){
     const pseudo = req.body.login.pseudo;
     const password = req.body.login.password;

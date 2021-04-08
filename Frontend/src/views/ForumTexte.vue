@@ -69,43 +69,6 @@ export default {
         }
     },
     methods:{        
-
-        //Publication d'un post
-        /*submitFormForum: function (){
-
-            //Vérification par regex du formulaire de dépôt d'un post
-            let pseudo = localStorage.getItem('pseudo');
-            let post = this.postMessage;
-            let regexPost = /[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}/g;
-            if((regexPost.test(post) === true)
-            ){
-                let message = {
-                    pseudo: pseudo,
-                    post: post,
-                    idUser: localStorage.getItem('idUser')
-                }
-                console.log(message);
-                const envoi = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'authorization': 'Bearer ' + localStorage.getItem('token')
-                    },
-                    body: JSON.stringify({ message }),
-                    mode: 'cors',
-                    cache: 'default'
-                }
-            console.log(envoi);
-
-            //Envoi du post
-            fetch("http://localhost:3000/api/forum", envoi)
-            .then(response => {
-                console.log(response);
-                location.replace('http://localhost:8080/forum-texte')
-            })            
-            .catch(error => alert("Erreur : " + error));
-            }
-        },   */
     
     //Suppression d'un post
         submitForumDelete: function (id){

@@ -1,4 +1,3 @@
-const sql = require('../models/db');
 const commentaireModel = require('../models/commentaire');
 
 //Création d'un nouveau commentaire
