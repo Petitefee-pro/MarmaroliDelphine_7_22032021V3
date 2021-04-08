@@ -53,7 +53,7 @@ exports.login = async function(req, res, next){
                     idUser : idUser,
                     pseudo: pseudo, 
                     idDroit: idDroit
-                },"vfvfkohpovdfvdfvuhdzhvlkzehgvzeghvezghvkledv",(err, token)=>{
+                }, process.env.TOKEN,(err, token)=>{
                     console.log(token)
                     if(err){
                         console.log('error')

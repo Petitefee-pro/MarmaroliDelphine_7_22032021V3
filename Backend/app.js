@@ -12,6 +12,8 @@ const apiLimiter = rateLimit({
     max: 100
 });
 
+require('dotenv').config()
+
 const helmet = require('helmet');
 
 const app = express();
