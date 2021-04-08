@@ -16,7 +16,7 @@
         <h1 class="text-center text-white">Forum Texte</h1>
         <div class=" formulaire border border-white rounded">
             <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation p-0" novalidate>
-                <div class="form-group col-11 col-md-10 m-0 pr-1 pl-1">
+                <div class="case form-group col-11 col-md-10 m-0 pr-1 pl-1">
                     <label for="post" class="col-auto col-form-label col-form-label-sm"></label> 
                     <textarea name="post" id="post" class=" placeholder form-control form-control-sm" placeholder="Veuillez saisir un nouveau post" v-model="postMessage" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
                     <div class="valid-feedback">Valide</div>
@@ -90,9 +90,10 @@ export default {
 .placeholder{
     font-size: 12px;
     font-style: italic;
-    line-height: 50%;
+    line-height: auto;
     vertical-align: middle;
 }
+
 .publier{
     font-size: 14px;
     font-weight: bold;
@@ -100,7 +101,6 @@ export default {
     vertical-align: middle;
 }
 .border{
-    line-height: auto;
     vertical-align: middle;
 }
 
