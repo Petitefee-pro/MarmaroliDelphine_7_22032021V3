@@ -20,11 +20,19 @@ exports.createForum = (req, res) => {
 
 //Suppression d'un forum
 exports.deleteForum = (req, res) => {
-  forumModel.deleteForum(req.params.idForum, (err, forum) => {
-    if(err)
-    res.send(err);
-    res.json({ success: true, message: 'Forum supprimé avec succès' });
-  })
+  forumModel.delete(req.params.id, (err, data) => {
+    if (err) {
+      if (err.kind === "non trouvé") {
+        res.status(404).send({
+          message: "Commentaire non trouvé avec l'id ${req.params.id}."
+        });
+      } else {
+        res.status(500).send({
+          message: "Impossible de supprimer le forum avec l'id " + req.params.id
+        });
+      }
+    } else res.send({ message: "Le forum a été supprimé avec succès !"});
+  });
 };
 
 //Récupération de tous les forums et commentaires

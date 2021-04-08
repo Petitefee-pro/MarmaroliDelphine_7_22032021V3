@@ -22,15 +22,22 @@ Forum.createForum = (forumReqData, result) => {
 };
 
 //Route delete Forum
-Forum.deleteForum =(idForum, result) => {
-  sql.query(`DELETE FROM forums WHERE idForum=?`,[idForum], (err, res) => {
+Forum.delete =(id, result) => {
+  sql.query(`DELETE FROM forums WHERE idForum=?`,
+  [id], (err, res) => {
     if(err){
-      console.log('Erreur lors de la suppression du forum');
+      console.log("Erreur lors de la suppression du forum", err);
       result(null, err);
-    } else {
-      result(null, res);
+      return;
+    } 
+    if (res.affectedRows == 0) {
+      //Forum non trouvé avec l'id
+      result({ kind: "non trouvé" }, null);
+      return;
     }
-  })
+    console.log("effacer le forum avec l'id: ", id);
+    result(null, res);
+  });
 };
 
 module.exports = Forum;

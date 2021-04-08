@@ -14,24 +14,11 @@
             </li>
         </ul>  
         <h1 class="text-center text-white">Forum Texte</h1>
-        <div class=" formulaire border border-white rounded">
-            <form id="forum" @submit.prevent="submitFormForum" class="row justify-content-center was-validated needs-validation p-0" novalidate>
-                <div class="form-group col-11 col-md-10 m-0 pr-1 pl-1">
-                    <label for="post" class="col-auto col-form-label col-form-label-sm"></label> 
-                    <textarea name="post" id="post" class=" placeholder form-control form-control-sm" placeholder="Veuillez saisir un nouveau post" v-model="postMessage" pattern="[A-Za-z0-9\s\-éöàäèüáúóêûîôâ']{2,1500}" required></textarea>
-                    <div class="valid-feedback">Valide</div>
-                    <div class="invalid-feedback"></div>
-                </div>
-                <div class="form-group col-6 col-md-7 col-lg-9 col-xl-11 mb-2 text-center">
-                    <button type="submit" @click.prevent="submitFormForum" class="publier btn btn-secondary btn-sm col-10 col-md-5 ">Publier</button>
-                </div>            
-            </form>
-        </div>
-        <!--<div class="border border-white rounded">
+        <div class="border border-white rounded">
             <router-link class="text-white font-weight-bold mr-2" to="/post">
-                <button class="btn btn-secondary btn-sm col-12">Que voulez-vous dire ?</button>
+                <button class="poster btn btn-secondary btn-sm col-12">Que voulez-vous dire ?</button>
             </router-link>
-        </div>-->
+        </div>
         <div class="pt-1">
             <section v-if="errored">
                 <p>Nous sommes désolés, nous ne sommes pas en mesure de récupérer ces informations pour le moment. Veuillez réessayer ultérieurement.</p>
@@ -56,16 +43,11 @@
                         <router-link :to="`/commentaire/${post.idForum}`" class="text-white font-weight-bold mr-2">
                             <button class="btnComment btn btn-secondary btn-sm col-1"><i class="far fa-comment-dots"></i></button>
                         </router-link>
-                        <button v-if="post.pseudoForum === user.pseudo || user.idDroit == 1" @click.prevent="submitForumDelete" class="suppComment btn btn-secondary btn-sm col-1"><i class="far fa-trash-alt"></i></button>
+                        <button v-if="post.pseudoForum === user.pseudo || user.idDroit == 1" @click.prevent="submitForumDelete(post.idForum)" class="suppComment btn btn-secondary btn-sm col-1"><i class="far fa-trash-alt"></i></button>
                     </div>             
                 </div>
             </section>
-        </div>   
-        <div>
-            
-            
-            
-        </div>        
+        </div>         
     </div>
 </template>
 
@@ -89,7 +71,7 @@ export default {
     methods:{        
 
         //Publication d'un post
-        submitFormForum: function (){
+        /*submitFormForum: function (){
 
             //Vérification par regex du formulaire de dépôt d'un post
             let pseudo = localStorage.getItem('pseudo');
@@ -123,24 +105,20 @@ export default {
             })            
             .catch(error => alert("Erreur : " + error));
             }
-        },   
+        },   */
     
     //Suppression d'un post
-        submitForumDelete: function (){
-            axios.delete("http://localhost:3000/api/forum/:id",JSON.stringify({
-                    idForum: this.idForum,
-                }),
-
-            {
-                headers: {
-                    "Content-Type": 'application/json'
+        submitForumDelete: function (id){
+            axios.delete("http://localhost:3000/api/forum/" + id, {
+                headers:{
+                    "authorization" : "Bearer " + localStorage.getItem("token")
                 }
             })
-                .then(response => {
-                    console.log(response);
-                    //location.replace('http://localhost:8080/forum-texte')
-                })            
-                .catch(error => alert("Erreur : " + error));
+            .then(response => {
+                console.log(response);
+                location.replace('http://localhost:8080/forum-texte')
+            })            
+            .catch(error => alert("Erreur : " + error));
         },
 
     //Suppression d'un commentaire
@@ -182,10 +160,9 @@ export default {
 </script>
 
 <style scoped>
-.placeholder{
+.poster{
     font-size: 12px;
     font-style: italic;
-    line-height: 50%;
     vertical-align: middle;
 }
 .publier{
@@ -197,6 +174,7 @@ export default {
 .postMessage{
     font-size: 14px;
     font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
 }
 .btnComment{
     line-height: 10%;

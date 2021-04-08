@@ -31,6 +31,6 @@ exports.deleteCommentaire = (req, res) => {
             message: "Impossible de supprimer le commentaire avec l'id " + req.params.id
           });
         }
-      } else res.send({ message: "Le commentaire a été supprimé avec succès!" });
+      } else res.send({ message: "Le commentaire a été supprimé avec succès !" });
   });    
 };
