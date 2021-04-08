@@ -2,21 +2,25 @@ const sql = require('../models/db');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const cryptoJS = require("crypto-js");
 
 //Création du profil utilisateur
-exports.signup = async (req, res, next) => {
-    console.log("body: ", req.body.identifiant);
+exports.signup = (req, res, next) => {
+    console.log("body: ", req.body);
     sql.query(`SELECT * FROM users WHERE identifiant = ?`, req.body.identifiant, function(error, _result, _fields){
         console.log(_result)
         if (_result.length > 0 ){
             bcrypt.hash(req.body.password, 10)
-            .then(hash => {
+            .then((hash) => {
+                const cipherText = cryptoJS.HmacSHA512(req.body.email, process.env.KEY).toString();
+                console.log(cipherText);
                 const user = new User({
                     identifiant: req.body.identifiant,
                     pseudo: req.body.pseudo,
-                    email: req.body.email,
+                    email: cipherText,
                     password: hash
                 })
+                console.log(user);
                 User.updateById(user, function(){ //sucess
                     res.status(201).json({mes: "utilisateur ajouté avec succés !"})
                 }, function(err){ //error
