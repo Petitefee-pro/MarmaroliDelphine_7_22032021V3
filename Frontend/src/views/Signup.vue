@@ -1,5 +1,6 @@
 <template>
     <div class="form-row rounded bg-transparent shadow justify-content-center m-0 pb-0">    
+        <Header/>
         <form id="signup" @submit.prevent="submitFormSignup" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-10 col-md-10 m-0 p-0">
                 <label for="identifiant"></label> 
@@ -33,11 +34,13 @@
 </template>
 
 <script>
-
+import Header from '@/components/Header'
 import axios from 'axios'
-
 export default {
     name: 'signup',
+    components: {
+      Header
+    },
     data(){
         return {
             identifiant: '',

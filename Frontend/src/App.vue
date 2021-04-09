@@ -1,19 +1,5 @@
 <template>  
-  <div id="app" class="container-fluid">
-    <nav>
-      <ul class="nav justify-content-start nav-fill">
-        <li class="nav-item">
-          <router-link class="nav-link m-1 p-0 text-center text-white" to="/signup">S'incrire</router-link>
-        </li>
-        <li class="nav-item">
-        <router-link class="nav-link m-1 p-0 text-white" to="/login">Se connecter</router-link> 
-        </li>
-        <li class="nav-item">
-        <router-link class="nav-link m-1 p-0 text-white" to="/deconnect">Se déconnecter</router-link> 
-        </li>
-      </ul>  
-    </nav>      
-    <Header/>
+  <div id="app" class="container-fluid">         
     <router-view/> 
     <Footer/>
   </div>   
@@ -21,12 +7,11 @@
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 export default {
     name: 'App',
     components: {
-        Header,
+        
         Footer     
     }
 }

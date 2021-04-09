@@ -1,7 +1,8 @@
 <template>
    <div class="accueil-forum justify-content-between">  
-       <h1 class="text-center text-white mb-4">Forums</h1>
-       <ul class="nav  nav-fill">
+      <EnteteConnexion/>
+      <h1 class="text-center text-white mb-4">Forums</h1>
+      <ul class="nav  nav-fill">
         <li class="nav-item bg-secondary mb-4">
           <router-link class="nav-link text-white font-weight-bold" to="/forum-texte">
           <p>FORUM TEXTE</p>
@@ -19,8 +20,12 @@
 </template>
 
 <script>
+import EnteteConnexion from '@/components/EnteteConnexion'
 export default {
     name: 'forum',
+    components: {
+        EnteteConnexion    
+    }
         }        
         
 </script>

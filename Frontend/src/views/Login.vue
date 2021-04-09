@@ -1,5 +1,6 @@
 <template>
     <div class="login form-row rounded bg-transparent shadow justify-content-center">
+        <Header/>
         <form id="login" @submit.prevent="submitFormLogin" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-9 col-md-10 mb-0 pr-2 pl-2">
                 <label for="pseudo"></label> 
@@ -24,9 +25,12 @@
 </template>
 
 <script>
-
+import Header from '@/components/Header'
 export default ({
     name: 'login',
+    components: {
+      Header
+    },
     data(){
         return {
             pseudo: '',

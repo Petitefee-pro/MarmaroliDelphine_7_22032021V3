@@ -1,5 +1,6 @@
 <template>
-    <div class="unsubscrive form-row rounded bg-transparent shadow justify-content-center">    
+    <div class="unsubscrive form-row rounded bg-transparent shadow justify-content-center">   
+        <Header/>
         <form id="unsubscribe" @submit.prevent="submitFormUnsubscribe" class="row justify-content-center was-validated needs-validation" novalidate>
             <div class="form-group col-9 col-md-10 m-0">
                 <label for="identifiant"></label> 
@@ -28,10 +29,12 @@
 
 <script>
 import axios from "axios";
-
-
+import Header from '@/components/Header'
 export default ({
     name: 'unsubscribe', 
+    components: {
+      Header
+    },
     data(){
         return {
             identifiant: '',

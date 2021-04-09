@@ -1,5 +1,6 @@
 <template>
-  <div class="form-row flex-column justify-content-center m-0 p-0">  
+    <div class="form-row flex-column justify-content-center m-0 p-0">  
+        <EnteteConnexion/>  
         <ul class="nav nav-fill">
             <li class="nav-item h-50 bg-secondary">
                 <router-link class="nav-link pl-4 p-1 col-1 text-white font-weight-bold" to="/forum">
@@ -32,8 +33,12 @@
 </template>
 
 <script>
+import EnteteConnexion from '@/components/EnteteConnexion'
 export default {
     name: 'commentaire', 
+    components: {
+        EnteteConnexion    
+    },
     data(){
         return {
             pseudo:'',          
